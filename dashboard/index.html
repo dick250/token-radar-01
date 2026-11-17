@@ -1,0 +1,70 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Token Launch Radar — pre-token protocols ranked by implied value</title>
+<link rel="stylesheet" href="app.css">
+</head>
+<body>
+<header class="masthead">
+  <div class="masthead-in">
+    <div>
+      <h1>Token Launch Radar</h1>
+      <p class="tagline">Protocols whose token does not exist yet, ranked by what that token could be worth — and how to farm each one before it launches.</p>
+    </div>
+    <div class="mast-stats" id="mastStats" aria-label="Snapshot summary"></div>
+  </div>
+</header>
+
+<section class="method" aria-label="How the ranking works">
+  <h2>How this board ranks</h2>
+  <p><strong>Implied value = FDV estimate &times; airdrop share &times; launch probability &times; momentum &times; survival.</strong>
+  The FDV estimate anchors each pre-token protocol to the market-cap-to-TVL ratio of the live protocols in its own
+  category (a DEX's locked value is priced near 0.34&times;, a lender's near 0.13&times;). Ratios are multiplicative, so
+  each anchor is shrunk toward the snapshot-wide median on a log scale, by an amount that falls as a category gains
+  traded peers: one live peer is outweighed eight to one, three peers outweigh the prior. Two labels — Risk Curators
+  and Onchain Capital Allocator — are one business, allocating other people's capital for a fee, so they are estimated
+  as a single family; their traded members price locked value at about two cents on the dollar, and the family anchor
+  says so, instead of letting one oracle token wearing a curator label price $2.8B of client money at 2.98&times;.
+  The airdrop share is a stated prior per category for how much of a launch early users typically receive. Launch
+  probability is built from the category's own launch rate, the protocol's scale and how long it has already run with
+  no token; momentum reads its seven-day TVL change; survival firms the anchor for protocols that kept users for years
+  without a token to sell them. Every figure comes from the snapshot's own fields — no protocol is named anywhere in
+  the model. Protocols whose token already trades are listed separately at the market's own market cap and never
+  enter this ranking.</p>
+  <p>One honest limit: the snapshot carries no parent-protocol field, so wrapped, staked and bridged products of live
+  tokens are kept off the board by category and name rules instead. The bridge categories stay off entirely: most of
+  their value is wrapped Bitcoin and exchange products, and the multi-chain bridges a field-only rule would admit are
+  themselves products of parents that already trade — ten fields cannot tell a bridge protocol from a wrapped asset
+  wearing its name, and the board would rather say so than guess.</p>
+</section>
+
+<nav class="controls" aria-label="Board controls">
+  <div class="view-tabs" role="tablist">
+    <button id="tabBoard" class="tab active" type="button">Pre-token board</button>
+    <button id="tabLive" class="tab" type="button">Already trading</button>
+  </div>
+  <input id="q" type="search" placeholder="Search name or slug" aria-label="Search">
+  <select id="cat" aria-label="Filter by category"><option value="">All categories</option></select>
+  <select id="chain" aria-label="Filter by chain"><option value="">All chains</option></select>
+  <label class="check"><input id="watchOnly" type="checkbox"> Watchlist only</label>
+  <select id="sort" aria-label="Sort rows">
+    <option value="implied">Sort: implied value</option>
+    <option value="tvl">Sort: TVL</option>
+    <option value="change">Sort: 7d change</option>
+    <option value="age">Sort: tokenless age</option>
+  </select>
+</nav>
+
+<main id="main" aria-live="polite"></main>
+
+<footer>
+  <p id="footNote"></p>
+  <p>Implied values are this board's own model claims, stated so a reader can disagree with them line by line. They are not predictions that a token will launch, and they are not make.fun's figures.</p>
+</footer>
+
+<script src="../data.js"></script>
+<script src="app.js"></script>
+</body>
+</html>
